@@ -6,5 +6,7 @@ from base import views
 urlpatterns = [
     path('index', views.index),
     path('new', views.new_page),
+    path('servey', views.servey),
+    path('calculate', views.calculate),
 
 ]

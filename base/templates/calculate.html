@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+    </head>
+    <body>
+        <h1 style="color: brown;">Calcualtor</h1>
+        <h3>first number</h3>
+
+        <input type="number" name="first" id="first"  required>
+        <h3>Select a operation</h3>
+
+        <select name="" id="opr">
+            <option value="+">+ Add</option>
+            <option value="-">- Sub</option>
+            <option value="*">* multi</option>
+            <option value="/">/ Div</option>
+        </select>
+        <h3>Second number</h3>
+        <input type="number" name="second" id="second" step="any">
+        <br>
+        <br>
+        <button onclick="cal()">Calculate</button>
+        <h3>result</h3>
+        <input type="text" name="result" id="result" readonly="">
+    </body>
+    <script type="text/javascript">
+        function cal(){
+            var first = document.getElementById('first').value;
+            first = parseInt(first)
+            var second = document.getElementById('second').value;
+            second = parseInt(second)
+            var opr = document.getElementById('opr').value;
+            if (opr == '+'){
+                document.getElementById('result').value= first+second
+            }
+            if (opr == '-'){
+                document.getElementById('result').value= first-second
+            }
+            if (opr == '*'){
+                document.getElementById('result').value= first*second
+            }
+            if (opr == '/'){
+                document.getElementById('result').value= first/second
+            }
+        }
+    </script>
+
+</html>
