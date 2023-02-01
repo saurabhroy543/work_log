@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from .forms import UserRegister
 
 
 def index(request):
@@ -17,3 +18,9 @@ def servey(request):
 # HTML with js Date: 31/01/2023
 def calculate(request):
     return render(request, 'calculate.html')
+
+
+#
+def register(request):
+    form = UserRegister()
+    return render(request, 'register.html', context={'form': form})

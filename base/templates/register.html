@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{% static 'base/css/bootstrap.min.css' %}">
+    <title>Django Ajax CRUD</title>
+</head>
+<body>
+<div class="container mt-5">
+    <h2 class="text-center alert alert-danger">
+        Django Function Based View Ajax Bootstrap
+    </h2>
+    <div class="row ">
+        <div class="col-sm-4">
+            <h4 class="text-center alert alert-info">Add/Update Data</h4>
+            <form action="" method="post">
+                {%csrf_token%}
+                {{form.as_p}}
+                <input type="button" class="btn btn-success" id="btnsave" value="Save">
+            </form>
+        </div>
+        <div class="col-sm-7">
+                        <h4 class="text-center alert alert-info">Add/Update Data</h4>
+
+        </div>
+    </div>
+
+</div>
+
+
+<script src="{% static 'base/js/jquery.js' %}"></script>
+<script src="{% static 'base/js/popper.js' %}"></script>
+<script src="{% static 'base/js/bootstrap.js' %}"></script>
+</body>
+</html>

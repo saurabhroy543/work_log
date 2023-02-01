@@ -8,5 +8,6 @@ urlpatterns = [
     path('new', views.new_page),
     path('servey', views.servey),
     path('calculate', views.calculate),
+    path('register', views.register),
 
 ]

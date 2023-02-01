@@ -10,6 +10,7 @@
     </head>
     <body>
         <h1 style="color: brown;">Calcualtor</h1>
+        <h2>WELCOME <i style="color:red" id="name"></i></h2>
         <h3>first number</h3>
 
         <input type="number" name="first" id="first"  required>
@@ -30,6 +31,9 @@
         <input type="text" name="result" id="result" readonly="">
     </body>
     <script type="text/javascript">
+    var name = prompt("Hello ! Please enter your name");
+                document.getElementById('name').innerHTML= name.toUpperCase();
+
         function cal(){
             var first = document.getElementById('first').value;
             first = parseInt(first)
