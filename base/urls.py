@@ -9,5 +9,9 @@ urlpatterns = [
     path('servey', views.servey),
     path('calculate', views.calculate),
     path('register', views.register),
+    path('save', views.save_register, name='save'),
+    path('delete', views.delete_data, name='delete'),
+    path('edit', views.edit_data, name='edit'),
+
 
 ]

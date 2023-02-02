@@ -19,12 +19,38 @@
             <h4 class="text-center alert alert-info">Add/Update Data</h4>
             <form action="" method="post">
                 {%csrf_token%}
+                <input type="hidden" name="stuid" id="stuid">
                 {{form.as_p}}
                 <input type="button" class="btn btn-success" id="btnsave" value="Save">
             </form>
         </div>
         <div class="col-sm-7">
-                        <h4 class="text-center alert alert-info">Add/Update Data</h4>
+            <h4 class="text-center alert alert-info">Show Student Informaation</h4>
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Password</th>
+                    <th scope="col">Action</th>
+                </tr>
+                </thead>
+                <tbody id="tbody">
+                {% for st in stu %}
+                <tr>
+                    <td>{{st.id}}</td>
+                    <td>{{st.name}}</td>
+                    <td>{{st.email}}</td>
+                    <td>{{st.password}}</td>
+                    <td>
+                        <input type="button" data-sid="{{st.id}}" class="btn btn-warning btn-sm btn-edit" value="EIDT">
+                        <input type="button" data-sid="{{st.id}}" class="btn btn-danger btn-sm btn-del" value="DELETE">
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
 
         </div>
     </div>
@@ -35,5 +61,6 @@
 <script src="{% static 'base/js/jquery.js' %}"></script>
 <script src="{% static 'base/js/popper.js' %}"></script>
 <script src="{% static 'base/js/bootstrap.js' %}"></script>
+{% include "ajax.html" %}
 </body>
 </html>
