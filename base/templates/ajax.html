@@ -26,7 +26,6 @@
                     if (data.status == 'save') {
                         x = data.student_data
                         for (i = 0; i < x.length; i++) {
-                            console.log('output');
                             output +="<tr><td>" + x[i].id + "</td><td>" + x[i].name + "</td><td>" + x[i].email + "</td> <td>" + x[i].password + "</td><td> <input type='button' class='btn btn-warning btn-sm btn-edit' value='EIDT' data-sid=" + x[i].id + " /> <input type='button' class='btn btn-danger btn-sm btn_del' value='DELETE' data-sid=" + x[i].id + " /></td></tr>";
                         }
                         $("#tbody").html(output);
@@ -45,10 +44,8 @@
     });
     //Delete Data
     $("tbody").on("click", ".btn-del", function () {
-        console.log("delete");
         let id = $(this).attr("data-sid");
         let csr = $("input[name='csrfmiddlewaretoken']").val();
-        console.log(id);
         mydata = { sid: id, csrfmiddlewaretoken: csr };
         mythis = this
         $.ajax({

@@ -1,0 +1,101 @@
+<script>
+    document.getElementById("btnauthor").addEventListener("click", promptAuthorName);
+
+    function promptAuthorName() {
+        let authorName = prompt("Please enter the author name:");
+        if (authorName) {
+            // Do something with the entered author name
+            console.log(`The author name is: ${authorName}`);
+        }
+    }
+
+
+    document.getElementById("bookButton").addEventListener("click", showBookModal);
+
+    function showBookModal() {
+        dropdown = '';
+        $.ajax({
+            url: "{% url 'author'  %}",
+            method: "GET",
+            success: function (data) {
+                x = data.author
+                for (i = 0; i < x.length; i++) {
+                    dropdown += "<option value=" + x[i].id + ">" + x[i].author + "</option>";
+                }
+                console.log(dropdown);
+                $("#authorName").html(dropdown);
+            }
+        })
+        document.getElementById("bookModal").style.display = "block";
+
+    }
+
+
+    function closeBookModal() {
+        document.getElementById("bookModal").style.display = "none";
+    }
+
+    // Close the modal window when clicking outside of the modal content
+    window.addEventListener("click", function (event) {
+        if (event.target === document.getElementById("bookModal")) {
+            closeBookModal();
+        }
+    });
+
+    $("#savebook").click(function () {
+        let author_id = $("#authorName").val();
+        let book = $("#bookName").val();
+        let csr = $("input[name='csrfmiddlewaretoken']").val();
+        book_data = { book_name: book, author: author_id, csrfmiddlewaretoken: csr }
+        console.log(book_data);
+        $.ajax({
+            url: "{% url 'savebook'%}",
+            method: "POST",
+            data: book_data,
+            success: function (data) { 
+                if(data.status==403){
+                    console.log(data.data);
+                    window.alert(data.data)
+                }
+            },
+        });
+    })
+//Delete book
+$("tbody").on("click", ".btn-del-book", function () {
+        let id = $(this).attr("data-sid");
+        let csr = $("input[name='csrfmiddlewaretoken']").val();
+        mydata = { sid: id, csrfmiddlewaretoken: csr };
+        mythis = this
+        $.ajax({
+            url: "{%url 'delete_book' %}",
+            method: "POST",
+            data: mydata,
+            success: function (data) {
+                // console.log(data)
+                if (data.status == 1) {
+                    $("#msg").text(" Data Deleted ");
+                    $("#msg").show();
+                    $(mythis).closest("tr").fadeOut();
+                } else if (data.status == 0) {
+                    console.log('not delete')
+                }
+            },
+        });
+    });
+//Edit book
+    $("tbody").on("click", ".btn-edit-book", function () {
+        let id = $(this).attr("data-sid");
+        let csr = $("input[name='csrfmiddlewaretoken']").val();
+        mydata = { sid: id, csrfmiddlewaretoken: csr };
+        $.ajax({
+            url: "{%url 'edit_book' %}",
+            method: "POST",
+            data: mydata,
+            success: function (data) {
+                $("#stuid").val(data.id);
+                $("#bookName").val(data.book);
+                $("#authorName").val(data.email);
+            },
+        });
+    });
+</script>

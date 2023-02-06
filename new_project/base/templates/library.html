@@ -1,0 +1,107 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'base/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'base/css/style.css' %}">
+    <title>Library</title>
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="text-center alert alert-danger">
+            Library Management 
+        </h2>
+        <div class="row ">
+            <div class="col-sm-4">
+                <h4 class="text-center alert alert-info">Add/Update Data</h4>
+                <form action="" method="post">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                        </thead>
+                        <tbody id="tbody">
+                        {% for st in authors %}
+                        <tr>
+                            <td>{{st.id}}</td>
+                            <td>{{st.author}}</td>
+                            <td>
+                                <input type="button" data-sid="{{st.id}}" class="btn btn-warning btn-sm btn-edit" value="EIDT">
+                                <input type="button" data-sid="{{st.id}}" class="btn btn-danger btn-sm btn-del" value="DELETE">
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    {%csrf_token%}
+                    <input type="hidden" name="stuid" id="stuid">
+                    <input type="button" class="btn btn-success" id="btnauthor" value="Add Author">
+
+                    <div id="bookModal" class="modal">
+                        <div class="modal-content">
+                          <form>
+                            <label for="bookName">Book Name:</label>
+                            <input type="text" id="bookName">
+                            <br><br>
+                            <label for="authorName">Author:</label>
+                            <select id="authorName">
+                              <option value="Author 1">Author 1</option>
+                              <option value="Author 2">Author 2</option>
+                              <option value="Author 3">Author 3</option>
+                            </select>
+                            <button class="btn btn-success" id="savebook">Save</button>
+                          </form>
+                        </div>
+                      </div>
+
+                </form>
+                <div id="msg" class="alert alert-danger" style="display: none">
+
+                </div>
+            </div>
+            <div class="col-sm-1">
+
+            </div>
+            <div class="col-sm-6">
+                <h4 class="text-center alert alert-info">Show Book Information</h4>
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Author</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                    </thead>
+                    <tbody id="tbody">
+                    {% for st in books %}
+                    <tr>
+                        <td>{{st.id}}</td>
+                        <td>{{st.book}}</td>
+                        <td>{{st.author}}</td>
+                        <td>
+                            <input type="button" data-sid="{{st.id}}" class="btn btn-warning btn-sm btn-edit-book" value="EIDT">
+                            <input type="button" data-sid="{{st.id}}" class="btn btn-danger btn-sm btn-del-book" value="DELETE">
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                <input type="button" class="btn btn-success" id="bookButton" value="Add Book">
+
+        </div>
+    </div>
+
+
+
+<script src="{% static 'base/js/jquery.js' %}"></script>
+<script src="{% static 'base/js/popper.js' %}"></script>
+<script src="{% static 'base/js/bootstrap.js' %}"></script>
+{% include "ajax.html" %}
+
+</body>
+</html>
