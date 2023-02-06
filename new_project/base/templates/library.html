@@ -24,14 +24,14 @@
                             <th scope="col">Action</th>
                         </tr>
                         </thead>
-                        <tbody id="tbody">
+                        <tbody id="tbody-author">
                         {% for st in authors %}
                         <tr>
                             <td>{{st.id}}</td>
                             <td>{{st.author}}</td>
                             <td>
-                                <input type="button" data-sid="{{st.id}}" class="btn btn-warning btn-sm btn-edit" value="EIDT">
-                                <input type="button" data-sid="{{st.id}}" class="btn btn-danger btn-sm btn-del" value="DELETE">
+                                <input type="button" data-sid="{{st.id}}" class="btn btn-warning btn-sm btn-edit-author" value="EIDT">
+                                <input type="button" data-sid="{{st.id}}" class="btn btn-danger btn-sm btn-del-author" value="DELETE">
                             </td>
                         </tr>
                         {% endfor %}
@@ -43,16 +43,18 @@
 
                     <div id="bookModal" class="modal">
                         <div class="modal-content">
-                          <form>
-                            <label for="bookName">Book Name:</label>
-                            <input type="text" id="bookName">
+                          <form id="bookForm">
+                            <input type="hidden" name="bookid" id="bookid">
+                            <label for="bookName">Book Name:<span style="color:red">*</span></label>
+                            <input type="text" id="bookName" required>
                             <br><br>
-                            <label for="authorName">Author:</label>
+                            <label for="authorName">Author:<span style="color:red">*</span></label>
                             <select id="authorName">
                               <option value="Author 1">Author 1</option>
                               <option value="Author 2">Author 2</option>
                               <option value="Author 3">Author 3</option>
                             </select>
+                            <br>
                             <button class="btn btn-success" id="savebook">Save</button>
                           </form>
                         </div>

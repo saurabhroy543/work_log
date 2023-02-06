@@ -21,11 +21,14 @@ def author(request):
         form = AddAuthor(request.POST)
         if form.is_valid():
             authorid = request.POST.get('author_id')
-            author = request.POST['author']
+            author_name = request.POST['author_name']
+            print(author_name,authorid)
             if authorid == '':
-                auth = Author(author=author)
+                print('here no id')
+                auth = Author(author=author_name)
             else:
-                auth = Author(id=authorid, author=author)
+                print('here in id')
+                auth = Author(id=authorid, author=author_name)
 
             auth.save()
             authr = Author.objects.values()
@@ -43,10 +46,13 @@ def add_book(request):
     if request.method == "POST":
         book = request.POST['book_name']
         authorid = request.POST['author']
+        book_id = request.POST.get('bookid')
         if book and authorid:
             author_instance = Author.objects.filter(pk=authorid).first()
-            authorid = int(authorid)
-            bk = Book(book=book, author=author_instance)
+            if book_id=='':
+                bk = Book(book=book, author=author_instance)
+            else:
+                bk = Book(id=book_id,book=book,author=author_instance)
             bk.save()
             return JsonResponse({'status': 200, 'data': 'done'})
         else:
@@ -63,13 +69,32 @@ def delete_book(request):
         return JsonResponse({'status': 0})
 
 
+def delete_author(request):
+    if request.method == "POST":
+        id = request.POST.get('sid')
+        pi = Author.objects.get(pk=id)
+        pi.delete()
+        return JsonResponse({'status': 1})
+    else:
+        return JsonResponse({'status': 0})
+
+
 def edit_book(request):
     if request.method == "POST":
         id = request.POST.get('sid')
         pi = Book.objects.get(pk=id)
         book_data = {'id': pi.id, 'book': pi.book,
-                     'author': pi.author}
-
+                     'author': pi.author.author}
         return JsonResponse(book_data)
+    else:
+        return JsonResponse({'status': 0})
+
+
+def edit_author(request):
+    if request.method == "POST":
+        id = request.POST.get('sid')
+        pi = Author.objects.get(pk=id)
+        author_data = {'id': pi.id, 'author': pi.author}
+        return JsonResponse({'author_data':author_data})
     else:
         return JsonResponse({'status': 0})
