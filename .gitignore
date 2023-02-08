@@ -5,3 +5,7 @@ base/__pycache__
 core/__pycache__
 index/migrations
 .idea
+new_project/base/migrations
+new_project/core/__pycache__
+new_project/base/__pycache__
+new_project.zip
