@@ -22,12 +22,9 @@ def author(request):
         if form.is_valid():
             authorid = request.POST.get('author_id')
             author_name = request.POST['author_name']
-            print(author_name,authorid)
             if authorid == '':
-                print('here no id')
                 auth = Author(author=author_name)
             else:
-                print('here in id')
                 auth = Author(id=authorid, author=author_name)
 
             auth.save()

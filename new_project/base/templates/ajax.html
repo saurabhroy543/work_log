@@ -1,6 +1,6 @@
 <script>
 
-    //get all author
+    //get all author ajax
     function getAuthor() {
         output = '';
         $.ajax({
@@ -17,6 +17,16 @@
             },
         });
     }
+
+    function populatedata(data){
+        x = data.author;
+                for (i = 0; i < x.length; i++) {
+                    output += "<tr><td>" + x[i].id + "</td><td>" + x[i].author + "</td><td> <input type='button' class='btn btn-warning btn-sm btn-edit-author' value='EIDT' data-sid=" + x[i].id + " /> <input type='button' class='btn btn-danger btn-sm btn-del-author' value='DELETE' data-sid=" + x[i].id + " /></td></tr>";
+                    $("#tbody-author").html(output);
+                    $("#stuid").val('');
+                    $("form")[0].reset();
+                }
+    }
     //ajax post author function
     function postAuthor(id, authorName) {
         let csr = $("input[name='csrfmiddlewaretoken']").val();
@@ -30,13 +40,12 @@
         });
     }
 
-    //Add author
+    //Add author button click function
     document.getElementById("btnauthor").addEventListener("click", promptAuthorName);
     function promptAuthorName() {
         output = '';
         id='';
         let authorName = prompt("Please enter the author name:");
-        console.log(`The author name is: ${authorName}`);
         let csr = $("input[name='csrfmiddlewaretoken']").val();
         if (authorName) {
             postAuthor(id,authorName);
@@ -46,7 +55,7 @@
     $("tbody").on("click", ".btn-edit-author", function () {
         let id = $(this).attr("data-sid");
         let csr = $("input[name='csrfmiddlewaretoken']").val();
-        mydata = { sid: id, csrfmiddlewaretoken: csr };
+        mydata = { sid: id, csrfmiddlewaretoken: csr };       
         $.ajax({
             url: "{%url 'edit_author' %}",
             method: "POST",
